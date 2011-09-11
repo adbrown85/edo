@@ -4,6 +4,7 @@
  * Author
  *     Andrew Brown <adb1413@rit.edu>
  */
+#include "config.h"
 #include "edo/Exception.hpp"
 using namespace Edo;
 using namespace std;

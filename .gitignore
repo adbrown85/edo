@@ -8,6 +8,9 @@ aclocal.m4
 autom4te.cache/
 autoscan.log
 config.guess
+config.h
+config.h.in
+config.h.in~
 config.sub
 config.log
 config.status
@@ -19,6 +22,3 @@ install-sh
 Makefile
 lib*.so.*
 ltmain.sh
-src/*/config.h
-src/*/config.h.in
-src/*/config.h.in~

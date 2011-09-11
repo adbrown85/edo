@@ -12,6 +12,5 @@
 #include <list>
 #include <map>
 #include <vector>
-#include "edo/config.h"
 
 #endif
