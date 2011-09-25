@@ -107,7 +107,7 @@ $(library): $(objects)
             -o $(builddir)/$(library) \
             ${addprefix $(builddir)/,$(objects)} \
 			-rpath $(libdir) \
-			-version-info $(minor):$(micro):$(minor)
+			-version-info $(minor):$(micro):0
 
 # Installation
 .PHONY: install uninstall
