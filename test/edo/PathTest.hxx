@@ -6,6 +6,7 @@
  */
 #ifndef EDO_PATHTEST_HXX
 #define EDO_PATHTEST_HXX
+#include "edo/Assert.hpp"
 #include "edo/TestFixture.hpp"
 #include "edo/TestSuite.hpp"
 #include "edo/TestRunner.hpp"
