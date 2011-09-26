@@ -5,7 +5,7 @@ libdir=@libdir@
 includedir=@includedir@/${tarname}
 
 Name: @PACKAGE_NAME@
-Description: Everyday objects library
+Description: @PACKAGE_DESCRIPTION@
 Version: @PACKAGE_VERSION@
 Libs: -L${libdir} -l${tarname}
 Cflags: -isystem ${includedir}
