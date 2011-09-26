@@ -1,10 +1,11 @@
+tarname=@PACKAGE_TARNAME@
 prefix=@prefix@
 exec_prefix=@exec_prefix@
 libdir=@libdir@
-includedir=@includedir@/edo
+includedir=@includedir@/${tarname}
 
-Name: libedo
+Name: @PACKAGE_NAME@
 Description: Everyday objects library
 Version: @PACKAGE_VERSION@
-Libs: -L${libdir} -ledo
+Libs: -L${libdir} -l${tarname}
 Cflags: -isystem ${includedir}
