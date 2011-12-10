@@ -23,3 +23,4 @@ install-sh
 Makefile
 lib*.so.*
 ltmain.sh
+tags
