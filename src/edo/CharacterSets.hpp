@@ -20,6 +20,7 @@ public:
     static CharacterSet& alphanumeric();
     static CharacterSet& digit();
     static CharacterSet& lowercase();
+    static CharacterSet& printable();
     static CharacterSet& punctuation();
     static CharacterSet& uppercase();
     static CharacterSet& whitespace();
@@ -33,6 +34,7 @@ private:
     class AlphanumericCharacterSet;
     class DigitCharacterSet;
     class LowercaseCharacterSet;
+    class PrintableCharacterSet;
     class PunctuationCharacterSet;
     class UppercaseCharacterSet;
     class WhitespaceCharacterSet;
@@ -60,6 +62,12 @@ public:
 
 /// Character set containing lowercase letters.
 class CharacterSets::LowercaseCharacterSet : public CharacterSet {
+public:
+    virtual bool contains(char c) const;
+};
+
+/// Character set containing visible characters and space.
+class CharacterSets::PrintableCharacterSet : public CharacterSet {
 public:
     virtual bool contains(char c) const;
 };

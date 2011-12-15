@@ -33,6 +33,12 @@ CharacterSet& CharacterSets::lowercase() {
     return *cs;
 }
 
+/// Returns a reference to the standarad printable character set.
+CharacterSet& CharacterSets::printable() {
+    static CharacterSet *cs = new PrintableCharacterSet();
+    return *cs;
+}
+
 /// Returns a reference to the standard punctuation character set.
 CharacterSet& CharacterSets::punctuation() {
     static CharacterSet *cs = new PunctuationCharacterSet();
@@ -73,6 +79,10 @@ bool CharacterSets::DigitCharacterSet::contains(char c) const {
 
 bool CharacterSets::LowercaseCharacterSet::contains(char c) const {
     return islower(c);
+}
+
+bool CharacterSets::PrintableCharacterSet::contains(char c) const {
+    return isprint(c);
 }
 
 bool CharacterSets::PunctuationCharacterSet::contains(char c) const {

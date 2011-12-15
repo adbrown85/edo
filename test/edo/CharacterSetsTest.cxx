@@ -21,6 +21,7 @@ public:
     void testAlphanumericCharacterSet();
     void testDigitCharacterSet();
     void testLowercaseCharacterSet();
+    void testPrintableCharacterSet();
     void testUppercaseCharacterSet();
     void testWhitespaceCharacterSet();
     void testWordCharacterSet();
@@ -71,6 +72,18 @@ void CharacterSetsTest::testLowercaseCharacterSet() {
     assertEquals(false, set->contains(' '));
 }
 
+/// Ensures the printable character set works correctly.
+void CharacterSetsTest::testPrintableCharacterSet() {
+
+    CharacterSet *set = &CharacterSets::printable();
+
+    assertEquals(true, set->contains('A'));
+    assertEquals(true, set->contains(' '));
+    assertEquals(true, set->contains('!'));
+    assertEquals(false, set->contains('\t'));
+    assertEquals(false, set->contains('\n'));
+}
+
 /// Ensures the whitespace character set works correctly.
 void CharacterSetsTest::testWhitespaceCharacterSet() {
 
@@ -113,6 +126,7 @@ EDO_ADD_TEST(testAlphabeticCharacterSet)
 EDO_ADD_TEST(testAlphanumericCharacterSet)
 EDO_ADD_TEST(testDigitCharacterSet)
 EDO_ADD_TEST(testLowercaseCharacterSet)
+EDO_ADD_TEST(testPrintableCharacterSet)
 EDO_ADD_TEST(testUppercaseCharacterSet)
 EDO_ADD_TEST(testWhitespaceCharacterSet)
 EDO_ADD_TEST(testWordCharacterSet)
