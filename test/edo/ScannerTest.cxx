@@ -5,6 +5,7 @@
  *     Andrew Brown <adb1413@rit.edu>
  */
 #include "config.h"
+#include <sstream>
 #include "edo/Assert.hpp"
 #include "edo/Patterns.hpp"
 #include "edo/Scanner.hpp"
@@ -26,7 +27,8 @@ public:
 
 void ScannerTest::testHasNext() {
 
-    Scanner scanner("blah blah blah");
+    stringstream stream("blah blah blah");
+    Scanner scanner(stream);
     Pattern *pattern = &Patterns::word();
 
     assertEquals(true, scanner.hasNext(pattern));
@@ -34,7 +36,8 @@ void ScannerTest::testHasNext() {
 
 void ScannerTest::testNextWithNoLeadingSpaces() {
 
-    Scanner scanner("blah blah blah");
+    stringstream stream("blah blah blah");
+    Scanner scanner(stream);
     Pattern *pattern = &Patterns::word();
 
     assertEquals(true, scanner.hasNext(pattern));
@@ -43,7 +46,8 @@ void ScannerTest::testNextWithNoLeadingSpaces() {
 
 void ScannerTest::testNextWithLeadingSpaces() {
 
-    Scanner scanner("  blah blah blah");
+    stringstream stream("  blah blah blah");
+    Scanner scanner(stream);
     Pattern *pattern = &Patterns::word();
 
     assertEquals(true, scanner.hasNext(pattern));
@@ -52,7 +56,8 @@ void ScannerTest::testNextWithLeadingSpaces() {
 
 void ScannerTest::testNextWithEndOfStream() {
 
-    Scanner scanner("blah");
+    stringstream stream("blah");
+    Scanner scanner(stream);
     Pattern *pattern = &Patterns::word();
 
     assertEquals(true, scanner.hasNext(pattern));
@@ -67,7 +72,8 @@ void ScannerTest::testNextWithEndOfStream() {
 
 void ScannerTest::testWithXml() {
 
-    Scanner scanner("<name key = 'value'>");
+    stringstream stream("<name key = 'value'>");
+    Scanner scanner(stream);
     Pattern *punct = &Patterns::punctuation();
     Pattern *word = &Patterns::word();
 

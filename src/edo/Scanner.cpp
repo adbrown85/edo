@@ -5,9 +5,6 @@
  *     Andrew Brown <adb1413@rit.edu>
  */
 #include "config.h"
-#include <cassert>
-#include <fstream>
-#include <sstream>
 #include "edo/Scanner.hpp"
 using namespace std;
 using namespace Edo;
@@ -15,24 +12,12 @@ using namespace Edo;
 Pattern *Scanner::DEFAULT_DELIMITER = createDefaultDelimiter();
 
 /**
- * Constructs a scanner from a path.
+ * Constructs a scanner from a stream.
  *
- * @param path Path to the file to scan
- * @throw std::exception if path is empty
- * @throw std::exception if file cannot be opened
+ * @param str Stream to scan
  */
-Scanner::Scanner(const Path &path) {
-    this->stream = createStreamFromPath(path);
-    this->delimiter = DEFAULT_DELIMITER;
-}
-
-/**
- * Constructs a scanner from a string.
- *
- * @param str String to scan
- */
-Scanner::Scanner(const string &str) {
-    this->stream = createStreamFromString(str);
+Scanner::Scanner(istream &stream) {
+    this->stream = &stream;
     this->delimiter = DEFAULT_DELIMITER;
 }
 
@@ -40,7 +25,7 @@ Scanner::Scanner(const string &str) {
  * Destroys a scanner.
  */
 Scanner::~Scanner() {
-    delete stream;
+    ;
 }
 
 /**
@@ -124,20 +109,6 @@ void Scanner::setDelimiter(Pattern *pattern) {
     }
 }
 
-/**
- * Closes any resources used by the scanner.
- */
-void Scanner::close() {
-
-    ifstream *fs = dynamic_cast<ifstream*>(stream);
-
-    if (fs != NULL) {
-        if (fs->is_open()) {
-            fs->close();
-        }
-    }
-}
-
 // HELPERS
 
 /**
@@ -150,33 +121,4 @@ Pattern* Scanner::createDefaultDelimiter() {
     Pattern *pattern = new SimplePattern(characters, quantifier);
 
     return pattern;
-}
-
-/**
- * Makes a stream from a path.
- *
- * @param Path to file to create stream from
- * @return Resulting stream
- * @throw std::exception if path is empty
- * @throw std::exception if file cannot be opened
- */
-istream* Scanner::createStreamFromPath(const Path &path) {
-
-    string str = path.toString();
-    ifstream *stream = new ifstream(str.c_str());
-
-    if (stream->fail()) {
-        throw Exception("[Scanner] Could not open file!");
-    }
-    return stream;
-}
-
-/**
- * Makes a stream from a string.
- *
- * @param str String to create stream from
- * @return Resulting stream
- */
-istream* Scanner::createStreamFromString(const std::string &str) {
-    return new istringstream(str);
 }
