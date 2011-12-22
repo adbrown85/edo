@@ -14,9 +14,10 @@ using namespace Edo;
  *
  * @param characters Set of characters pattern will match
  * @param quantifier Cardinality and repetition of character set
+ * @param negated True to match all characters not in character set
  * @throws std::exception if character set is NULL
  */
-SimplePattern::SimplePattern(CharacterSet *characters, Quantifier quantifier) {
+SimplePattern::SimplePattern(CharacterSet *characters, Quantifier quantifier, bool negated) {
 
     if (characters == NULL) {
         throw Exception("[SimplePattern] Character set is NULL!");
@@ -26,13 +27,14 @@ SimplePattern::SimplePattern(CharacterSet *characters, Quantifier quantifier) {
 
     this->characters = characters;
     this->quantifier = quantifier;
+    this->negated = negated;
 }
 
 bool SimplePattern::matches(std::istream &stream) const {
     switch (quantifier) {
     case QUANTIFIER_ONE:
     case QUANTIFIER_ONE_OR_MORE:
-        return characters->contains(stream.peek());
+        return contains(stream.peek());
     case QUANTIFIER_ZERO_OR_ONE:
     case QUANTIFIER_ZERO_OR_MORE:
         return true;
@@ -56,7 +58,20 @@ string SimplePattern::match(std::istream &stream) const {
     }
 }
 
+// GETTERS
+
+/**
+ * Returns True if the pattern matches everything not in character set.
+ */
+bool SimplePattern::isNegated() const {
+    return negated;
+}
+
 // HELPERS
+
+bool SimplePattern::contains(char c) const {
+    return negated ? !characters->contains(c) : characters->contains(c);
+}
 
 bool SimplePattern::isSupported(Quantifier quantifier) {
     switch (quantifier) {
@@ -71,7 +86,7 @@ bool SimplePattern::isSupported(Quantifier quantifier) {
 }
 
 string SimplePattern::matchQuantifierOne(istream &stream) const {
-    if (!characters->contains(stream.peek())) {
+    if (!contains(stream.peek())) {
         throw Exception("[SimplePattern] Input does not match!");
     } else {
         return takeCharacterFromStream(stream);
@@ -79,7 +94,7 @@ string SimplePattern::matchQuantifierOne(istream &stream) const {
 }
 
 string SimplePattern::matchQuantifierOneOrMore(istream &stream) const {
-    if (!characters->contains(stream.peek())) {
+    if (!contains(stream.peek())) {
         throw Exception("[SimplePattern] Input does not match!");
     } else {
         return takeCharactersFromStream(stream);
@@ -87,7 +102,7 @@ string SimplePattern::matchQuantifierOneOrMore(istream &stream) const {
 }
 
 string SimplePattern::matchQuantifierZeroOrOne(istream &stream) const {
-    if (!characters->contains(stream.peek())) {
+    if (!contains(stream.peek())) {
         return "";
     } else {
         return takeCharacterFromStream(stream);
@@ -95,7 +110,7 @@ string SimplePattern::matchQuantifierZeroOrOne(istream &stream) const {
 }
 
 string SimplePattern::matchQuantifierZeroOrMore(istream &stream) const {
-    if (!characters->contains(stream.peek())) {
+    if (!contains(stream.peek())) {
         return "";
     } else {
         return takeCharactersFromStream(stream);
@@ -128,7 +143,7 @@ string SimplePattern::takeCharactersFromStream(istream &stream) const {
     stringstream buf;
     char c;
 
-    while (characters->contains(stream.peek())) {
+    while (contains(stream.peek())) {
         c = stream.get();
         buf << c;
     }

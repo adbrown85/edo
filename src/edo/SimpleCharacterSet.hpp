@@ -17,13 +17,12 @@ namespace Edo {
  */
 class SimpleCharacterSet : public CharacterSet {
 public:
-    SimpleCharacterSet(char c, bool negated=false);
-    SimpleCharacterSet(const std::string &str, bool negated=false);
-    SimpleCharacterSet(const std::set<char> &characters, bool negated=false);
+    SimpleCharacterSet(char c);
+    SimpleCharacterSet(const std::string &str);
+    SimpleCharacterSet(const std::set<char> &characters);
     virtual bool contains(char c) const;
 private:
     std::set<char> characters;
-    bool negated;
 // Helpers
     static std::set<char> createSetFromCharacter(char c);
     static std::set<char> createSetFromString(const std::string &str);

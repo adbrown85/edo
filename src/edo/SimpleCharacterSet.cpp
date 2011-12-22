@@ -13,33 +13,27 @@ using namespace Edo;
  * Constructs a character set from a single character.
  *
  * @param c Single character to add to set
- * @param negated True to use the opposite character set
  */
-SimpleCharacterSet::SimpleCharacterSet(char c, bool negated) {
+SimpleCharacterSet::SimpleCharacterSet(char c) {
     this->characters = createSetFromCharacter(c);
-    this->negated = negated;
 }
 
 /**
  * Constructs a character set from a string.
  *
  * @param str String with characters to add to set
- * @param negated True to use the opposite character set
  */
-SimpleCharacterSet::SimpleCharacterSet(const std::string &str, bool negated) {
+SimpleCharacterSet::SimpleCharacterSet(const std::string &str) {
     this->characters = createSetFromString(str);
-    this->negated = negated;
 }
 
 /**
  * Constructs a character set from a set of characters.
  *
  * @param characters Set of characters to copy into set
- * @param negated True to use the opposite character set
  */
-SimpleCharacterSet::SimpleCharacterSet(const set<char> &characters, bool negated) {
+SimpleCharacterSet::SimpleCharacterSet(const set<char> &characters) {
     this->characters = characters;
-    this->negated = negated;
 }
 
 bool SimpleCharacterSet::contains(char c) const {
@@ -47,7 +41,7 @@ bool SimpleCharacterSet::contains(char c) const {
     set<char>::iterator it = characters.find(c);
     bool found = characters.find(c) != characters.end();
 
-    return negated ? !found : found;
+    return found;
 }
 
 //

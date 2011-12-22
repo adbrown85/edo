@@ -19,16 +19,19 @@ namespace Edo {
  */
 class SimplePattern : public Pattern {
 public:
-    SimplePattern(CharacterSet *characters, Quantifier quantifier);
+    SimplePattern(CharacterSet *characters, Quantifier quantifier, bool negated=false);
     virtual bool matches(std::istream &stream) const;
     virtual std::string match(std::istream &stream) const;
 // Getters
     CharacterSet* getCharacterSet();
     Quantifier getQuantifier();
+    virtual bool isNegated() const;
 private:
     CharacterSet *characters;
     Quantifier quantifier;
+    bool negated;
 // Helpers
+    bool contains(char c) const:
     static bool isSupported(Quantifier quantifier);
     std::string matchQuantifierOne(std::istream &stream) const;
     std::string matchQuantifierOneOrMore(std::istream &stream) const;
