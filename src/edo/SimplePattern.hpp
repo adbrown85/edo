@@ -31,7 +31,7 @@ private:
     Quantifier quantifier;
     bool negated;
 // Helpers
-    bool contains(char c) const:
+    bool contains(char c) const;
     static bool isSupported(Quantifier quantifier);
     std::string matchQuantifierOne(std::istream &stream) const;
     std::string matchQuantifierOneOrMore(std::istream &stream) const;
