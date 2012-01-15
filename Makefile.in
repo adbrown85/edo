@@ -165,3 +165,8 @@ $(builddir)/%.d: %.cxx
 ifneq (clean,${findstring clean,$(MAKECMDGOALS)})
   -include ${addprefix $(builddir)/,$(depends)}
 endif
+
+# Documentation
+.PHONY: docs
+docs:
+	doxygen
