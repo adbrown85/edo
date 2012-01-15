@@ -11,27 +11,27 @@ using namespace Edo;
 
 /**
  * Creates a path from a string.
- * 
+ *
  * @param str Location of a file or resource
  * @return Path instance
  * @throw std::exception if string is empty
  */
 Path Path::fromString(const string &str) {
-    
+
     if (str.empty()) {
         throw Exception("[Path] String is empty!");
     }
-    
+
     string root = createRoot(str);
     list<string> parts = createParts(str);
     bool directory = endsWithSeparator(str);
-    
+
     return Path(root, parts, directory);
 }
 
 /**
  * Creates a path.
- * 
+ *
  * @param root Root of path
  * @param parts Parts of path
  * @param directory <tt>true</tt> if path is a directory
@@ -69,13 +69,13 @@ bool Path::isDirectory() const {
  * Returns the path as a string.
  */
 string Path::toString() const {
-    
+
     ostringstream ss;
     list<string>::const_iterator it = parts.begin();
-    
+
     // Root
     ss << root;
-    
+
     // Parts
     if (!parts.empty()) {
         it = parts.begin();
@@ -86,57 +86,57 @@ string Path::toString() const {
             ++it;
         }
     }
-    
+
     // Directory
     if (directory && !parts.empty()) {
         ss << "/";
     }
-    
+
     return ss.str();
 }
 
 /* Utilities */
 
 Path Path::basename(const Path &path) {
-    
+
     string last;
     list<string> parts;
-    
+
     if (path.isDirectory()) {
         return Path("", parts, false);
     }
-    
+
     last = path.parts.back();
     parts.push_back(last);
-    
+
     return Path("", parts, false);
-    
+
 }
 
 /**
  * Finds directory section of a path.
- * 
+ *
  * @param path Path to find directory section of
  * @return Directory section of path
  */
 Path Path::dirname(const Path &path) {
-    
+
     if (path.isDirectory()) {
         return path;
     }
-    
+
     string root = path.root;
     list<string> parts = path.parts;
     bool directory = true;
-    
+
     parts.pop_back();
-    
+
     return Path(root, parts, directory);
 }
 
 /**
  * Combines two paths together.
- * 
+ *
  * @param folder Path to a directory
  * @param file Path to a file
  * @return Path to the file relative to the directory
@@ -144,11 +144,11 @@ Path Path::dirname(const Path &path) {
  * @throw std::exception if second path is not a file
  */
 Path Path::locate(const Path &folder, const Path &file) {
-    
+
     string root;
     list<string> parts;
     list<string>::const_iterator it;
-    
+
     // Validate
     if (!folder.isDirectory()) {
         throw Exception("[Path] First path is not a directory!");
@@ -157,11 +157,11 @@ Path Path::locate(const Path &folder, const Path &file) {
     } else if (file.isAbsolute()) {
         return file;
     }
-    
+
     // First copy directory path's data
     root = folder.root;
     parts = folder.parts;
-    
+
     // Merge relative path's parts into copy
     it = file.parts.begin();
     while (it != file.parts.end()) {
@@ -172,7 +172,7 @@ Path Path::locate(const Path &folder, const Path &file) {
         }
         ++it;
     }
-    
+
     return Path(root, parts, false);
 }
 
@@ -180,32 +180,32 @@ Path Path::locate(const Path &folder, const Path &file) {
 
 /**
  * Makes the parts of the filename.
- * 
+ *
  * @param filename Filename to look in
  * @return List of strings containing the parts
  */
 list<string> Path::createParts(const string &filename) {
-    
+
     list<string> tokens = tokenize(filename);
     list<string>::iterator it;
-    
+
     // Check for Unix root
     if (tokens.empty()) {
         return tokens;
     }
-    
+
     // Check for Windows root
     it = tokens.begin();
     if (isWindowsRoot(*it)) {
         tokens.erase(it);
     }
-    
+
     return tokens;
 }
 
 /**
  * Makes the root of the path from a filename.
- * 
+ *
  * @param filename Filename to look in
  * @return String containing the root, or the empty string
  */
@@ -221,7 +221,7 @@ string Path::createRoot(const string &filename) {
 
 /**
  * Checks if a string ends with a path separator.
- * 
+ *
  * @param str String to check
  * @return <tt>true</tt> if last character is a slash
  */
@@ -231,7 +231,7 @@ bool Path::endsWithSeparator(const string &str) {
 
 /**
  * Checks if a string has a Unix root.
- * 
+ *
  * @param string String to look in
  * @return <tt>true</tt> if string starts with a Unix root
  */
@@ -241,7 +241,7 @@ bool Path::hasUnixRoot(const string &str) {
 
 /**
  * Checks if a string has a Windows root.
- * 
+ *
  * @param str String to look in
  * @return <tt>true</tt> if string starts with a Windows root
  */
@@ -255,7 +255,7 @@ bool Path::hasWindowsRoot(const string &str) {
 
 /**
  * Checks if a character is a path separator.
- * 
+ *
  * @param c Character to check
  * @return <tt>true</tt> if the character is a path separator
  */
@@ -265,7 +265,7 @@ bool Path::isSeparator(char c) {
 
 /**
  * Checks if a string is a Windows root.
- * 
+ *
  * @param str String to check
  * @return <tt>true</tt> if string is a Windows root
  */
@@ -275,29 +275,29 @@ bool Path::isWindowsRoot(const string &str) {
 
 /**
  * Breaks up a filename into its parts.
- * 
+ *
  * @param filename Name of a file
  * @return List of tokens in filename
  */
 list<string> Path::tokenize(const string &filename) {
-    
+
     int len;                 // Length of buffer
     char *buffer;            // Character buffer storing filename
     char *token;             // Pointer to token in buffer
     list<string> tokens;     // List storing each token
-    
+
     // Copy filename into buffer
     len = filename.length() + 1;
     buffer = new char[len];
     strcpy(buffer, filename.c_str());
-    
+
     // Break up buffer into tokens
     token = strtok(buffer, "/\\");
     while (token != NULL) {
         tokens.push_back(token);
         token = strtok(NULL, "/\\");
     }
-    
+
     // Finish
     delete[] buffer;
     return tokens;

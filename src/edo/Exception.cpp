@@ -1,6 +1,6 @@
 /*
  * Exception.cpp
- * 
+ *
  * Author
  *     Andrew Brown <adb1413@rit.edu>
  */
@@ -11,7 +11,7 @@ using namespace std;
 
 /**
  * Creates a basic exception.
- * 
+ *
  * @param message Explanation shown to the user
  */
 Exception::Exception(const string &message) throw() {

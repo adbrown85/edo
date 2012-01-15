@@ -32,7 +32,7 @@ private:
 
 /**
  * Constructs a test case.
- * 
+ *
  * @param name Descriptive name
  * @param method Method to call on fixture
  */
@@ -46,7 +46,7 @@ TestCase<T>::TestCase(const std::string &name,
 
 /**
  * Runs the test case on a fixture.
- * 
+ *
  * @param fixture Test fixture to run test case on
  */
 template<class T>

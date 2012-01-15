@@ -44,16 +44,16 @@ public:
 
 /**
  * Runs each test case in a suite.
- * 
+ *
  * @param testSuite Collection of test cases to run
  */
 template <typename T>
 inline
 void TestRunner<T>::runTestSuite(TestSuite<T> &testSuite) {
-    
+
     T testFixture;
     typename TestSuite<T>::iterator it;
-    
+
     try {
         for (it=testSuite.begin(); it!=testSuite.end(); ++it) {
             std::cout << "RUNNING " << it->getName() << std::endl;

@@ -34,7 +34,7 @@ private:
 
 /**
  * Adds a test case to the suite.
- * 
+ *
  * @param name Name of the test case
  * @param method Address to the method to call
  */
@@ -47,7 +47,7 @@ void TestSuite<T>::addTestCase(const std::string &name,
 
 /**
  * Adds a test case to the suite.
- * 
+ *
  * @param testCase Test case to add
  */
 template <typename T>
