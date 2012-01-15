@@ -12,19 +12,19 @@ using namespace Edo;
 /**
  * Creates a path from a string.
  * 
- * @param filename Name of file
+ * @param str Location of a file or resource
  * @return Path instance
- * @throw std::exception if filename is empty
+ * @throw std::exception if string is empty
  */
-Path Path::fromString(const string &filename) {
+Path Path::fromString(const string &str) {
     
-    if (filename.empty()) {
-        throw Exception("[Path] Filename is empty!");
+    if (str.empty()) {
+        throw Exception("[Path] String is empty!");
     }
     
-    string root = createRoot(filename);
-    list<string> parts = createParts(filename);
-    bool directory = endsWithSeparator(filename);
+    string root = createRoot(str);
+    list<string> parts = createParts(str);
+    bool directory = endsWithSeparator(str);
     
     return Path(root, parts, directory);
 }

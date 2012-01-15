@@ -32,7 +32,7 @@ SimpleCharacterSet::SimpleCharacterSet(const std::string &str) {
  *
  * @param characters Set of characters to copy into set
  */
-SimpleCharacterSet::SimpleCharacterSet(const set<char> &characters) {
+SimpleCharacterSet::SimpleCharacterSet(const std::set<char> &characters) {
     this->characters = characters;
 }
 

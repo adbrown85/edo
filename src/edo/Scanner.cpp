@@ -14,9 +14,9 @@ Pattern *Scanner::DEFAULT_DELIMITER = createDefaultDelimiter();
 /**
  * Constructs a scanner from a stream.
  *
- * @param str Stream to scan
+ * @param stream Stream to scan
  */
-Scanner::Scanner(istream &stream) {
+Scanner::Scanner(std::istream &stream) {
     this->stream = &stream;
     this->delimiter = DEFAULT_DELIMITER;
 }
